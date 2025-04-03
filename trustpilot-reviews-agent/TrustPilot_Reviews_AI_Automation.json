@@ -1,0 +1,155 @@
+{
+  "name": "TrustPilot Reviews AI Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "d723e546-6689-4100-8465-fab1140effa3",
+      "name": "When chat message received",
+      "webhookId": "018e27f3-c944-46ca-8c15-9af7f448fc53"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        580,
+        200
+      ],
+      "id": "f905fcb2-6fb5-40c7-91c6-533ee1bacb18",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        780,
+        200
+      ],
+      "id": "a3cc13be-dd92-45b7-aa42-74b8236e25d3",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        660,
+        0
+      ],
+      "id": "414605ca-8d1a-491e-a42a-79937788c304",
+      "name": "Reviews Agent"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1mWyz8KXP1vw1mNI8ZfkiKkObchXxOamVEJ-CaoXnAnk",
+          "mode": "list",
+          "cachedResultName": "trustpilot_reviews",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mWyz8KXP1vw1mNI8ZfkiKkObchXxOamVEJ-CaoXnAnk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mWyz8KXP1vw1mNI8ZfkiKkObchXxOamVEJ-CaoXnAnk/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        960,
+        200
+      ],
+      "id": "4e46d830-80ed-4bad-8027-961f1932d2f7",
+      "name": "Trustpilot Reviews",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pu6BEVFncJmzSHTf",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Reviews Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Reviews Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Reviews Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trustpilot Reviews": {
+      "ai_tool": [
+        [
+          {
+            "node": "Reviews Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f9d8ef21-8f97-4ae7-b382-bf28d707e338",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "Y2yLn3l7zaDSgxvR",
+  "tags": []
+}

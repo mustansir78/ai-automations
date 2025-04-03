@@ -1,3 +1,5 @@
+*DISCLAIMER: All N8N automations are tested on a local computer with Llama 3.2 model. This model has basic conversational capabilities. If you want advanced reasoning, statistical analysis and idea generation capabilities, consider using models from OpenAI, OpenRouter, Grok, Gemini*
+
 # General Setup Guidelines
 
 This document serves as a guide to setting up the environment needed to run the AI automations in this repository.

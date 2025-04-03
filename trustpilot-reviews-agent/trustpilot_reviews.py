@@ -14,7 +14,7 @@ COMPANY_NAME = "[YOUR COMPANY NAME]"    # make sure you check the exact name on 
 REVIEWS_HOMEPAGE = f"https://www.trustpilot.com/review/{COMPANY_NAME}?{DATE_RANGE_12_MONTHS}"
 
 async def init():
-    browser = await launch(headless=False)
+    browser = await launch(headless=True)
     page = await browser.newPage()
     reviews = []
 
